@@ -23,25 +23,24 @@ npm run build        # must finish with no errors before you submit
 
 | Item | Your answer |
 | --- | --- |
-| Group number | |
-| Section | |
-| Repository URL | |
+| Group number |7|
+| Section |IT3-A|
+| Repository URL |https://github.com/princemycoquilicot-design/ccc181-week10-group7.git|
 
 ## Members (each member fills in their own row in their own commit)
 
 | Member | Name | GitHub username | CSS file | What I did |
 | --- | --- | --- | --- | --- |
-| 1 (leader) | | | `base.css` | |
-| 2 | | | `nav.css` | |
-| 3 | | | `form.css` | |
+| 1 (leader) |Prince Myco Quilicot|princemycoquilicot-design| `base.css` |making the base style|
+| 2 |Jhon Leemar M. Chio |jhonleemar| `nav.css` |making the navigation and footer|
+| 3 |Ruzzel Daniel Sanchez |ruzzel99sanchez-spect| `form.css` |making the log in-form|
 
 ## Experiment 0: the page without the viewport tag
 
 What did the page look like in DevTools phone mode **before** adding the viewport meta tag?
 What changed **after** adding it?
 
-> (write your answer here)
-
+> Before adding the viewport meta tag, the webpage looked too small in iPhone SE mode because the browser treated it like a desktop screen. After adding the viewport meta tag to `index.html` and refreshing, the page adjusted to the phone's actual screen size (375 px), making the text easier to read and the content fit properly.
 ## DevTools test results
 
 | Width | What must be true | Pass? |
@@ -55,10 +54,10 @@ What changed **after** adding it?
 
 Using **Show media queries** and dragging slowly from 360 px to 1280 px, the layout changed at these exact widths:
 
-> (write the widths here, and say whether any width looked broken)
+> The layout changed at 360px, 768px, 1024px, and 1280px. The content adjusted based on the screen size. I did not notice any broken layout or sideways scrolling.
 
 Screenshots are in `screenshots/` as `360.png`, `768.png`, `1024.png`, `1280.png`.
 
 ## What our group learned (leader writes this last)
 
-> (write your answer here)
+> We learned that responsive design helps a website adjust to different screen sizes. Using media queries and proper breakpoints makes the website easier to use on phones, tablets, and computers.
