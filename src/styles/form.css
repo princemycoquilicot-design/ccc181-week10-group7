@@ -228,3 +228,22 @@
     flex-direction: row; /* two buttons SIDE BY SIDE */
   }
 }
+
+
+
+
+/* ---- 3. 1024px and up (laptops) -------------------------------------- */
+@media (min-width: 1024px) {
+  .login-card {
+    padding: 2.5rem;
+  }
+
+  .login-card__title {
+    font-size: 1.75rem;
+  }
+}
+
+
+/* ---- 4. 1280px and up ------------------------------------------------
+   Nothing new here: .container (Member 1) keeps the content centered.
+   -------------------------------------------------------------------- */
