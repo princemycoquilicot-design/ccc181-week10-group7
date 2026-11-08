@@ -1,0 +1,278 @@
+{
+  "info": {
+    "name": "CampusConnect API",
+    "description": "Tests for the CampusConnect login API. Start the backend first (npm start inside server/).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api/v1"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Health (expect 200)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Body says ok\", function () { pm.expect(pm.response.json().status).to.eql(\"ok\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Login correct (expect 200)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/sessions",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "sessions"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"student@campusconnect.test\",\n  \"password\": \"Campus26\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+              "const body = pm.response.json();",
+              "pm.test(\"Has token and user\", function () { pm.expect(body.token).to.be.a(\"string\"); pm.expect(body.user.name).to.eql(\"Demo Student\"); });",
+              "pm.collectionVariables.set(\"token\", body.token); // used by request 7"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Login wrong password (expect 401)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/sessions",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "sessions"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"student@campusconnect.test\",\n  \"password\": \"Wrong123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 401\", function () { pm.response.to.have.status(401); });",
+              "pm.test(\"Message\", function () { pm.expect(pm.response.json().error).to.eql(\"Invalid email or password.\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Login unknown email (expect 401, same message)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/sessions",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "sessions"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"nobody@campusconnect.test\",\n  \"password\": \"Campus26\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 401\", function () { pm.response.to.have.status(401); });",
+              "pm.test(\"Same message\", function () { pm.expect(pm.response.json().error).to.eql(\"Invalid email or password.\"); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Login empty body (expect 400)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/sessions",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "sessions"
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 400\", function () { pm.response.to.have.status(400); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Me without token (expect 401)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/me",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "me"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 401\", function () { pm.response.to.have.status(401); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Me with token (expect 200) - run request 2 first",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/me",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "me"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () { pm.response.to.have.status(200); });",
+              "pm.test(\"Is the demo user\", function () { pm.expect(pm.response.json().email).to.eql(\"student@campusconnect.test\"); });"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
