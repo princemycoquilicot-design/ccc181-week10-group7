@@ -1,0 +1,95 @@
+/* =======================================================================
+   MEMBER 3  |  auth.css  |  Part 2: API message, loading button, Welcome screen
+   Same mobile-first rules: phone first, min-width only, rem/%, 48px targets.
+   ======================================================================= */
+
+
+/* ---- 1. PHONE (no media query) --------------------------------------- */
+
+/* Message above the form (wrong login, cannot reach server, ...) */
+.auth-message {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid;
+  border-radius: var(--radius);
+  overflow-wrap: anywhere; /* a long message never causes sideways scrolling */
+}
+
+.auth-message--error {
+  color: var(--error);
+  background: #fdecee;
+  border-color: var(--error);
+}
+
+/* Loading state: "Signing in..." button is disabled */
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn--primary:disabled,
+.btn--primary:disabled:hover {
+  background: var(--navy);
+}
+
+/* "Checking your session..." while refresh calls GET /users/me */
+.auth-checking {
+  margin-block: 2rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* Welcome screen */
+.welcome {
+  width: 100%;
+  margin-block: 1.5rem;
+  padding: 1.5rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.welcome__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  color: var(--navy);
+}
+
+.welcome__email {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
+.welcome__logout {
+  width: 100%; /* .btn already gives min-height: 48px */
+}
+
+
+/* ---- 2. 768px and up (tablets) --------------------------------------- */
+@media (min-width: 768px) {
+  .welcome {
+    max-width: 32rem;
+    margin-inline: auto;
+    padding: 2rem;
+  }
+
+  .welcome__logout {
+    width: auto;
+    min-width: 12rem;
+  }
+}
+
+
+/* ---- 3. 1024px and up (laptops) -------------------------------------- */
+@media (min-width: 1024px) {
+  .welcome {
+    margin-block: 3rem;
+    padding: 2.5rem;
+  }
+
+  .welcome__title {
+    font-size: 1.75rem;
+  }
+}
