@@ -61,3 +61,11 @@ Screenshots are in `screenshots/` as `360.png`, `768.png`, `1024.png`, `1280.png
 ## What our group learned (leader writes this last)
 
 > We learned that responsive design helps a website adjust to different screen sizes. Using media queries and proper breakpoints makes the website easier to use on phones, tablets, and computers.
+
+
+## Part 2: What I did (Member 2)
+Jhon Leemar M. Chio (@jhonleemar)
+
+- Ran the backend locally and tested all 7 requests in Postman: health, login (200, 401 wrong password, 401 unknown email, 400 empty body) and users/me (401 without token, 200 with token)
+- Added the Postman screenshots: postman-health.png, postman-login-200.png, postman-login-401.png, postman-me-401.png
+- Reviewed the backend pull request
