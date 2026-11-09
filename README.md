@@ -62,8 +62,18 @@ Screenshots are in `screenshots/` as `360.png`, `768.png`, `1024.png`, `1280.png
 
 > We learned that responsive design helps a website adjust to different screen sizes. Using media queries and proper breakpoints makes the website easier to use on phones, tablets, and computers.
 
+## Part 2: What I did (Member 1)
+   Prince Myco Quilicot (@princemycoquilicot-design)
 
-   ## Part 2: What I did (Member 2)
+   - Set up the server/ folder with Express, CORS, JSON handling and a .env file for the settings (PORT, JWT_SECRET, CLIENT_ORIGIN). Added .env.example files with fake values and kept the real .env out of GitHub
+   - Built GET /api/v1/health, which answers 200 with { "status": "ok" }
+   - Built POST /api/v1/sessions (login): it checks the email and password (400 if missing or badly formed), finds the user, compares the password with bcrypt, answers 401 "Invalid email or password." for both a wrong password and an unknown email, and answers 200 with a token (valid for 1 hour) and the user's name and email when the login is correct
+   - Added the demo account (student@campusconnect.test / Campus26) with a hashed password, and made sure the password and hash are never sent in any response
+   - Added the token check for GET /api/v1/users/me and the 404 and 500 handlers so the whole API works together
+   - Added docs/API-SPEC.md and the Postman collection file in docs/postman/
+   - Worked on my own branch (feature/sessions-quilicot) with 3 commits and opened pull request #6, which Member 2 reviewed and merged
+     
+   ## What I did (Member 2)
    Jhon Leemar M. Chio (@jhonleemar)
 
    - Ran the backend locally and tested all 7 requests in Postman: health, login (200, 401 wrong password, 401 unknown email, 400 empty body) and users/me (401 without token, 200 with token)
